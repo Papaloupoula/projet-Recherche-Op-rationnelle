@@ -1,6 +1,7 @@
 ## Antiparseur
 
 import csv as csv
+
 def antiparseur(solution):
     liste_sous_trait = solution[0]
     id_sous_trait = []
@@ -10,14 +11,14 @@ def antiparseur(solution):
     nb_sous_trait = 0
     for el in liste_sous_trait:
         nb_sous_trait += el
-    
+
     tournees = solution[1]
     nb_tournees = len(tournees)
-    
+
     groupes = solution[2]
     nb_groupes = len(groupes)
-    
-    
+
+
     with open('solution.csv', 'w', newline='') as csvfile:
         solwriter = csv.writer(csvfile, delimiter=' ',quotechar=' ', quoting=csv.QUOTE_MINIMAL)
         solwriter.writerow(['x'] + [nb_sous_trait] + ['f'] + [id_sous_trait[i] for i in range(len(id_sous_trait))])

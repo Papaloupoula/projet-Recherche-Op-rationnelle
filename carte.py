@@ -1,12 +1,15 @@
+
+import matplotlib.pyplot as plt
+
 def distance_heuristique(i, j): #renvoie la distance à vol d'oiseau entre deux fournisseurs i et j
     dist = (infos_fournisseurs[i][2][0] - infos_fournisseurs[j][2][0])**2 + (infos_fournisseurs[i][2][1] - infos_fournisseurs[j][2][1])**2
     return(dist)
 
-import matplotlib.pyplot as plt
 
 abs=[]
 ord=[]
 n = [i for i in range(i)]
+print(n)
 for i in range(nb_fournisseurs):
     abs.append(infos_fournisseurs[i][2][0])
     ord.append(infos_fournisseurs[i][2][1])
