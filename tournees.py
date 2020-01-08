@@ -6,7 +6,7 @@ Created on Wed Jan  8 10:44:47 2020
 """
 
 from parseur_kiro import *
-from groupe import *
+from constitution_groupes import *
 from fct_cout import *
 tournees=[]
 ###Tournée de base groupe
