@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jan  8 11:19:06 2020
-
 @author: OUHAICHI Firas
 """
 from parseur_kiro import *
@@ -38,4 +37,3 @@ def constit_groupe_simple(fournisseurs_groupes):
 
 a=isolement(clust,n_clusters)
 GROUP = constit_groupe_simple(a)
-

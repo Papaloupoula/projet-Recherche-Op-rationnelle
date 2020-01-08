@@ -6,18 +6,19 @@ Created on Wed Jan  8 10:44:47 2020
 """
 
 from parseur_kiro import *
-from constitution_groupes import *
+from groupe import *
 from fct_cout import *
 tournees=[]
 ###Tournée de base groupe
-def tournee(numero,groupe):
+def cree_tournees_groupe(numero,groupe):
     #On vide les fournisseurs pour qu'ils aient des demandes inférieurs à Q
+    tournees_groupe = []
     for s in range(horizon):
         demande=[infos_fournisseurs[i][1][s] for i in groupe]
         for i in range(len(groupe)):
             while demande[i]>Q:
                 tournee=[numero,s,[groupe[i]],[Q]]
-                tournees.append(tournee)
+                tournees_groupe.append(tournee)
                 demande[i]=demande[i]-Q
         for i in range(len(groupe)):
             quantite_tot=0
@@ -33,12 +34,18 @@ def tournee(numero,groupe):
                         demande[j]=demande[j]-on_prend
             if len(fournisseur_livre)>0:
                 tournee=[numero,s,fournisseur_livre,quant_fournisseur]
-                tournees.append(tournee)
+                tournees_groupe.append(tournee)
+    return(tournees_groupe)
 
-for i in range(len(GROUP)):
-    tournee(i,GROUP[i])
 
+def cree_tournees(groupes):
+    tournees=[]
+    for i in range(len(groupes)):
+        tournees_groupe = cree_tournees_groupe(i, groupes[i])
+        for x in tournees_groupe:
+            tournees.append(x)
+    return(tournees)
+
+tournees=cree_tournees(GROUP)
 solution=[sous_traites_bool,tournees,GROUP] 
-print(cout(solution))                 
-                
-                
+print(cout(solution))
