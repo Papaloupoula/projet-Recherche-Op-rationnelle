@@ -38,7 +38,7 @@ def tournee(numero,groupe):
 for i in range(len(GROUP)):
     tournee(i,GROUP[i])
 
-solution=[[False for i in range(nb_fournisseurs) ],tournees,GROUP] 
+solution=[sous_traites_bool,tournees,GROUP] 
 print(cout(solution))                 
                 
                 
