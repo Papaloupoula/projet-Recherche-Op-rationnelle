@@ -21,7 +21,7 @@ from parseur_kiro import infos_fournisseurs
 x=[]
 for i in range(len(infos_fournisseurs)):
     #if sous_traites_bool[i]==0:
-        x.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
+    x.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
 
 x=np.array(x)
 
@@ -30,8 +30,6 @@ plt.scatter(x[:,0],x[:,1], label='True Position')
 kmeans = KMeans(n_clusters)
 kmeans.fit(x)
 
-print(kmeans.cluster_centers_)
-
-print(kmeans.labels_)
+clust = kmeans.labels_
 
 plt.scatter(x[:,0],x[:,1], c=kmeans.labels_, cmap='rainbow')
