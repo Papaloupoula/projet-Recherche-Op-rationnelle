@@ -19,14 +19,14 @@ from solution_triviale import sous_traites_bool
 #on importe les donnees
 
 from parseur_kiro import infos_fournisseurs
-x=[]
+y=[]
 corresp=[]
 for i in range(len(infos_fournisseurs)):
     if sous_traites_bool[i]==0:
-        x.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
+        y.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
         corresp.append(i)
 
-x=np.array(x)
+x=np.array(y)
 
 plt.scatter(x[:,0],x[:,1], label='True Position')
 
