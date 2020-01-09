@@ -19,16 +19,19 @@ for i in range(nb_fournisseurs):
     del qtes_fournies
 
 def cout_aller_retour(i):
-    #cout pour faire depot -> fournisseur i -> usine
+    """
+    cout pour faire depot -> fournisseur i -> usine
+    """
     return matrice_couts[nb_fournisseurs][i]+matrice_couts[i][nb_fournisseurs+1]
 
 def cout_min_quand_on_soustraite_pas(i):
     return cout_aller_retour(i)*nbr_min_passages_camions[i]
 
 
-## sous traitÃ©s selon un seuil
-
 def sous_traites_avec_seuil(seuil):
+    """
+    renvoie une liste avec qui est sous-traité, selon un certain seuil
+    """
     sous_traites = []
     for i in range(nb_fournisseurs):
         if (cout_min_quand_on_soustraite_pas(i)/infos_fournisseurs[i][0]<seuil):

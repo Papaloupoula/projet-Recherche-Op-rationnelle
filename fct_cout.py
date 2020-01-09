@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan  8 10:39:13 2020
+
+@author: Bakong Killian
+"""
+
 ## Fonction coût
 from parseur_kiro import *
 """

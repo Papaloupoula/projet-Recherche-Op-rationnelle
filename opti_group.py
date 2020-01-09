@@ -4,7 +4,7 @@ Created on Wed Jan  8 17:27:01 2020
 
 @author: Charles
 """
-from parseur_kiro import infos_fournisseurs
+
 from fct_cout import cout_tournee
 from parseur_kiro import Q
 
@@ -13,7 +13,6 @@ import itertools
 def opti_tournee(groupe, demande, numero_groupe,s):
     m=0
     n=len(groupe)
-    tournees=[]
     tournees_opti=[]
 
     #cas on fait des groupes de 1
@@ -68,6 +67,8 @@ def opti_tournee(groupe, demande, numero_groupe,s):
             cout = cout_tournee(tournee)
             if cout<m:
                 tournees_opti=[tournee]
+
+
 
     return tournees_opti
 

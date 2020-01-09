@@ -7,6 +7,9 @@ Created on Wed Jan  8 09:32:01 2020
 import numpy as np
 import matplotlib.pyplot as plt
 
+from parseur_kiro import nb_fournisseurs, matrice_couts
+from carte import distance_heuristique
+
 dist=[]
 
 cout_depart=[]

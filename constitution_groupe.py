@@ -3,8 +3,6 @@
 Created on Wed Jan  8 11:19:06 2020
 @author: OUHAICHI Firas
 """
-from parseur_kiro import *
-from kmeans import *
 
 def isolement(clustre,n_clustre, corresp):
     """

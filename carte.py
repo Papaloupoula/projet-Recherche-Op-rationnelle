@@ -1,9 +1,19 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan  9 10:39:55 2020
+
+@author: Charles
+"""
+
+import matplotlib.pyplot as plt
 from sklearn.cluster import MiniBatchKMeans
+from parseur_kiro import infos_fournisseurs, nb_fournisseurs, coord_depot, coord_usine
+
+
 def distance_heuristique(i, j): #renvoie la distance à vol d'oiseau entre deux fournisseurs i et j
     dist = (infos_fournisseurs[i][2][0] - infos_fournisseurs[j][2][0])**2 + (infos_fournisseurs[i][2][1] - infos_fournisseurs[j][2][1])**2
     return(dist)
 
-import matplotlib.pyplot as plt
 
 abs=[]
 ord=[]
@@ -38,4 +48,4 @@ def plus_pres(i):
 
 l_plus_proche = [plus_pres(i) for i in range(nb_fournisseurs)]
 
-    
+

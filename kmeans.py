@@ -13,15 +13,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.cluster import KMeans
 
-from parseur_kiro import *
-from sous_traitance_seuil import sous_traites_bool
-
-#on importe les donnees
-
 from parseur_kiro import infos_fournisseurs
+from sous_traitance_seuil import sous_traites_bool
 
 
 def correspondance(sous_traites):
+    """
+
+    """
+
     x0=[]
     corresp0=[]
     for i in range(len(infos_fournisseurs)):
