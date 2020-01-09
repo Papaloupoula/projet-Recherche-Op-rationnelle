@@ -5,11 +5,13 @@ Created on Wed Jan  8 10:44:47 2020
 @author: OUHAICHI Firas
 """
 
-from parseur_kiro import *
-from fct_cout import *
+from parseur_kiro import infos_fournisseurs, horizon, Q
+
 ###Tournée de base groupe
 def cree_tournees_groupe(numero,groupe):
-    #On vide les fournisseurs pour qu'ils aient des demandes inférieurs à Q
+    """
+    On vide les fournisseurs pour quils aient des demandes inférieurs à Q
+    """
     tournees_groupe = []
     for s in range(horizon):
         demande=[infos_fournisseurs[i][1][s] for i in groupe]
@@ -37,6 +39,9 @@ def cree_tournees_groupe(numero,groupe):
 
 
 def cree_tournees(groupes):
+    """
+
+    """
     tournees=[]
     for i in range(len(groupes)):
         tournees_groupe = cree_tournees_groupe(i, groupes[i])

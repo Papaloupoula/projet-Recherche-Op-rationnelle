@@ -1,6 +1,6 @@
 from math import *
 from parseur_kiro import *
-from fct_cout import *
+
 ### Calcul des coûts si on ne sous-traite pas
 
 # on commence par calculer le nombre minimal de passages de camions devant être faits pour chaque fournisseur
@@ -36,12 +36,12 @@ def solution_triviale():
         else:
             sous_traites_bool.append(1)
     # sous_traites_bool[i] = 1 : on sous-traite i, 0 sinon
-    
+
     groupes = []
     for i in range(nb_fournisseurs):
         if sous_traites_bool[i]==0:
             groupes.append([i]) #i forme un groupe d'1 élément
-    
+
     tournees = []
     for i in range(len(groupes)):
         fournisseur = groupes[i][0]

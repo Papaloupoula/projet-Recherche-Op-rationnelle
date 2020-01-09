@@ -6,7 +6,7 @@ Created on Wed Jan  8 10:39:13 2020
 """
 
 from kmeans import correspondance, isolement
-from fct_cout import cout
+from parseur_kiro import cout
 from constitution_groupe import constit_groupe_simple
 from tournees import cree_tournees
 from sousTraitanceSeuil import sous_traites_avec_seuil

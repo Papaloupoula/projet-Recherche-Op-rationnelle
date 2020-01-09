@@ -8,8 +8,7 @@ Created on Wed Jan  8 11:19:06 2020
 import random as rd
 import copy as c
 
-from parseur_kiro import nb_fournisseurs
-from fct_cout import cout
+from parseur_kiro import nb_fournisseurs, cout
 from tournees import cree_tournees
 
 

@@ -5,8 +5,7 @@ Created on Wed Jan  8 17:27:01 2020
 @author: Charles
 """
 
-from fct_cout import cout_tournee
-from parseur_kiro import Q
+from parseur_kiro import Q, cout_tournee
 
 import itertools
 
