@@ -6,7 +6,7 @@ Created on Wed Jan  8 10:39:13 2020
 """
 
 ## Fonction coût
-from parseur_kiro import *
+from parseur_kiro import matrice_couts, nb_fournisseurs, infos_fournisseurs
 """
 soit une solution sol=[x, y, z]
 x = liste des fournisseurs, 1 s'ils sont sous-traités, 0 sinon
