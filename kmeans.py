@@ -14,7 +14,7 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 from parseur_kiro import infos_fournisseurs
-from sous_traitance_seuil import sous_traites_bool
+from sousTraitanceSeuil import sous_traites_bool
 
 
 def correspondance(sous_traites):

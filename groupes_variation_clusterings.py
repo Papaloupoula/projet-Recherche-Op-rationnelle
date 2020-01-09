@@ -5,9 +5,9 @@ Created on Wed Jan  8 10:39:13 2020
 @author: OUHAICHI Firas
 """
 
-from kmeans import correspondance, isolement
+from kmeans import correspondance
 from parseur_kiro import cout
-from constitution_groupe import constit_groupe_simple
+from constitution_groupe import constit_groupe_simple, isolement
 from tournees import cree_tournees
 from sousTraitanceSeuil import sous_traites_avec_seuil
 
@@ -19,7 +19,7 @@ def groupes_variation_clustering(nb_iterations, sous_traites):
     groupes en faisant varier les clusterings
     """
     solutions=[]
-    for i in range(2, nb_iterations+2):
+    for i in range(10, nb_iterations+11):
 
         corresp, x = correspondance(sous_traites)
 
@@ -29,7 +29,7 @@ def groupes_variation_clustering(nb_iterations, sous_traites):
 
         groupe0 = constit_groupe_simple(isolement(clustos, i, corresp))
 
-        tournees0=cree_tournees(groupe0)
+        tournees0 = cree_tournees(groupe0)
 
         solution0 = [sous_traites, tournees0, groupe0]
 
@@ -55,9 +55,10 @@ def n_meilleures_sol(solutions, N):
                 indice_min = i
         N_meilleurs.append(indice_min)
         couts_N_meilleurs.append(cout_sol)
-    return(N_meilleurs)
+
+    return [solutions[i] for i in N_meilleurs]
 
 ##
 
 solutions = groupes_variation_clustering(20, sous_traites_avec_seuil(1))
-meilleure_sol_originale = solutions[n_meilleures_sol(solutions, 1)[0]]
+meilleure_sol_originale = n_meilleures_sol(solutions, 1)[0]

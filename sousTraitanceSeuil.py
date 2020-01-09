@@ -32,11 +32,11 @@ for i in range(nb_fournisseurs):
     quant = 0
     for j in range(horizon):
         bibi_semaine = qtes_fournies[j]
-        #nb_passages_semaine = ceil(bibi_semaine/Q) # arrondi a  l'entier superieur (module math)
-        quant += bibi_semaine
-        #n+=nb_passages_semaine
+        nb_passages_semaine = ceil(bibi_semaine/Q) # arrondi a  l'entier superieur (module math)
+        #quant += bibi_semaine
+        n+=nb_passages_semaine
     nbr_min_passages_camions.append(n)
-    nbr_min_passages_camions.append(ceil(quant/Q))
+    #nbr_min_passages_camions.append(ceil(quant/Q))
     del n
     #del nb_passages_semaine
     del bibi_semaine
@@ -53,9 +53,9 @@ def cout_min_quand_on_soustraite_pas(i):
 
 
 def sous_traites_avec_seuil(seuil):
-
-    #renvoie une liste avec qui est soustraite, selon un certain seuil
-
+    """
+    renvoie une liste avec qui est soustraite, selon un certain seuil
+    """
     sous_traites = []
     for i in range(nb_fournisseurs):
         if (cout_min_quand_on_soustraite_pas(i)/infos_fournisseurs[i][0]<seuil):
@@ -73,4 +73,4 @@ def nbr_de_mec_sous_traite(sous_traite):
             s+=1
     return s
 
-
+sous_traites_bool = sous_traites_avec_seuil(1)

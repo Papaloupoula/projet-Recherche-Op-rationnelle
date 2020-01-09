@@ -8,6 +8,8 @@ Created on Wed Jan  8 11:19:06 2020
 import random as rd
 import copy as c
 
+import math as m
+
 from parseur_kiro import nb_fournisseurs, cout
 from tournees import cree_tournees
 
@@ -16,15 +18,16 @@ from tournees import cree_tournees
 
 def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
     """
-    échange deux fournisseurs pour une liste de sous-traitance et une liste de groupes_ech données
+    échange deux fournisseurs pour une liste de sous-traitance
+    et une liste de groupes_ech données
     modifie la liste de sous-traitance et celle des groupes_ech
     """
-    print("f1:", fourn1)
-    print("f2:", fourn2)
+    #print("f1:", fourn1)
+    #print("f2:", fourn2)
     fourn1_est_soustraite = sous_traites0[fourn1]
     fourn2_est_soustraite = sous_traites0[fourn2]
-    print("st f1", fourn1_est_soustraite)
-    print("st f2", fourn2_est_soustraite)
+    #print("st f1", fourn1_est_soustraite)
+    #print("st f2", fourn2_est_soustraite)
     indice_groupe_f1 = -1
     indice_groupe_f2 = -1
     for j in range(len(groupes_ech)):
@@ -33,8 +36,8 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
             indice_groupe_f1 = j
         if fourn2 in groupe_en_cours:
             indice_groupe_f2 = j
-    print("grp1", indice_groupe_f1)
-    print("grp2", indice_groupe_f2)
+    #print("grp1", indice_groupe_f1)
+    #print("grp2", indice_groupe_f2)
 
     #"0e cas" les deux sont sous traites, on ne fait rien
     if fourn1_est_soustraite == 1 and fourn2_est_soustraite == 1:
@@ -80,25 +83,25 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
                 del groupe_f2[k]
                 groupe_f2.append(fourn1)
 
-    print("xxxxxxxxxxxxxxxx")
-    print("f1:", fourn1)
-    print("f2:", fourn2)
-    fourn1_est_soustraite = sous_traites0[fourn1]
-    fourn2_est_soustraite = sous_traites0[fourn2]
-    print("st f1", fourn1_est_soustraite)
-    print("st f2", fourn2_est_soustraite)
-    indice_groupe_f1 = -1
-    indice_groupe_f2 = -1
-    for j in range(len(groupes_ech)):
-        groupe_en_cours = groupes_ech[j]
-        if fourn1 in groupe_en_cours:
-            indice_groupe_f1 = j
-        if fourn2 in groupe_en_cours:
-            indice_groupe_f2 = j
-    print("grp1", indice_groupe_f1)
-    print("grp2", indice_groupe_f2)
-    print("XXXXXXXXXXXXXXXXX")
-    print("XXXXXXXXXXXXXXXXX")
+    #print("xxxxxxxxxxxxxxxx")
+    #print("f1:", fourn1)
+    #print("f2:", fourn2)
+    #fourn1_est_soustraite = sous_traites0[fourn1]
+    #fourn2_est_soustraite = sous_traites0[fourn2]
+    #print("st f1", fourn1_est_soustraite)
+    #print("st f2", fourn2_est_soustraite)
+#    indice_groupe_f1 = -1
+#    indice_groupe_f2 = -1
+#    for j in range(len(groupes_ech)):
+#        groupe_en_cours = groupes_ech[j]
+#        if fourn1 in groupe_en_cours:
+#            indice_groupe_f1 = j
+#        if fourn2 in groupe_en_cours:
+#            indice_groupe_f2 = j
+    #print("grp1", indice_groupe_f1)
+    #print("grp2", indice_groupe_f2)
+    #print("XXXXXXXXXXXXXXXXX")
+    #print("XXXXXXXXXXXXXXXXX")
 
 ## Descente de gradient
 
@@ -115,6 +118,9 @@ def descente1(solution_originale, iterations_max):
         fournisseur1 = rd.randint(0, nb_fournisseurs-1)
         fournisseur2 = rd.randint(0, nb_fournisseurs-1)
 
+        while fournisseur1 == fournisseur2:
+            fournisseur2 = rd.randint(0, nb_fournisseurs-1)
+
         # while fournisseur1 == fournisseur2 or (fournisseur1_est_soustraite == 1 and fournisseur2_est_soustraite ==  1) or (indice_groupe_f1 == indice_groupe_f2):
         #     fournisseur2 = rd.randint(0, nb_fournisseurs)
 
@@ -130,8 +136,56 @@ def descente1(solution_originale, iterations_max):
 
         if nv_cout < cout_sol:
             solution_en_cours = c.deepcopy(nv_solution)
-            print(nv_cout)
+            #print(nv_cout)
 
-        print(i)
+        #print(i)
         i+=1
-    return(solution_en_cours)
+    #return(solution_en_cours)
+    solution_originale = solution_en_cours
+
+def recuit_simule(solution_originale, iterations_max):
+    """
+    faire avec 100
+    """
+
+    i=0
+    solution_en_cours = c.deepcopy(solution_originale)
+    while i <= iterations_max:
+        sous_traites0 = c.deepcopy(solution_en_cours[0])
+        groupes_desc = c.deepcopy(solution_en_cours[2])
+        cout_sol = cout(solution_en_cours)
+
+        # on commence par générer deux fournisseurs à échanger aléatoirement
+        fournisseur1 = rd.randint(0, nb_fournisseurs-1)
+        fournisseur2 = rd.randint(0, nb_fournisseurs-1)
+
+        while fournisseur1 == fournisseur2:
+            fournisseur2 = rd.randint(0, nb_fournisseurs-1)
+
+        # while fournisseur1 == fournisseur2 or (fournisseur1_est_soustraite == 1 and fournisseur2_est_soustraite ==  1) or (indice_groupe_f1 == indice_groupe_f2):
+        #     fournisseur2 = rd.randint(0, nb_fournisseurs)
+
+        # on échange les fournisseurs grâce à la fonction auxiliaire
+        echange_fournisseurs(fournisseur1, fournisseur2, sous_traites0, groupes_desc)
+
+        # maintenant qu'on a un nouveau groupe, on en génère les tournées
+        tournees_desc = cree_tournees(groupes_desc)
+
+        # on a maintenant une nouvelle solution, qu'on garde si elle est meilleure
+        nv_solution = [sous_traites0, tournees_desc, groupes_desc]
+        nv_cout = cout(nv_solution)
+
+        if nv_cout < cout_sol:
+            solution_en_cours = c.deepcopy(nv_solution)
+            #print(nv_cout)
+        else :
+            T = 1+iterations_max - i
+            energie = m.exp( -10/T)
+            p = rd.random()
+            if p <= energie:
+                solution_en_cours = nv_solution
+        #print(i)
+        i+=1
+    #return(solution_en_cours)
+    solution_originale = solution_en_cours
+

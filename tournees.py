@@ -10,16 +10,20 @@ from parseur_kiro import infos_fournisseurs, horizon, Q
 ###Tournée de base groupe
 def cree_tournees_groupe(numero,groupe):
     """
-    On vide les fournisseurs pour quils aient des demandes inférieurs à Q
+    On vide les fournisseurs pour quils aient des demandes inferieurs à Q
+
+    Puis on remplit a la fijas
     """
     tournees_groupe = []
     for s in range(horizon):
         demande=[infos_fournisseurs[i][1][s] for i in groupe]
+
         for i in range(len(groupe)):
             while demande[i]>Q:
                 tournee=[numero,s,[groupe[i]],[Q]]
                 tournees_groupe.append(tournee)
                 demande[i]=demande[i]-Q
+
         for i in range(len(groupe)):
             quantite_tot=0
             quant_fournisseur=[]
@@ -35,6 +39,7 @@ def cree_tournees_groupe(numero,groupe):
             if len(fournisseur_livre)>0:
                 tournee=[numero,s,fournisseur_livre,quant_fournisseur]
                 tournees_groupe.append(tournee)
+
     return(tournees_groupe)
 
 
@@ -45,6 +50,7 @@ def cree_tournees(groupes):
     tournees=[]
     for i in range(len(groupes)):
         tournees_groupe = cree_tournees_groupe(i, groupes[i])
+        #opti_tournee(groupe, demande, numero_groupe,s)
         for x in tournees_groupe:
             tournees.append(x)
     return(tournees)
