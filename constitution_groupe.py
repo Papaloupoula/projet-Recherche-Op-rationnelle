@@ -6,7 +6,7 @@ Created on Wed Jan  8 11:19:06 2020
 from parseur_kiro import *
 from kmeans import *
 
-def isolement(clustre,n_clustre):
+def isolement(clustre,n_clustre, corresp):
     """
     renvoies un liste avec en ieme entree la liste des fournisseurs
     du cluster i
@@ -35,5 +35,3 @@ def constit_groupe_simple(fournisseurs_groupes):
                 groupes[a].append(fournisseurs_groupes[i][j])
     return groupes
 
-a=isolement(clust,n_clusters)
-GROUP = constit_groupe_simple(a)

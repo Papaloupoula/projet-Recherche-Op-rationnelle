@@ -14,31 +14,29 @@ import numpy as np
 from sklearn.cluster import KMeans
 
 from parseur_kiro import *
-from solution_triviale import sous_traites_bool
+from sous_traitance_seuil import sous_traites_bool
 
 #on importe les donnees
 
 from parseur_kiro import infos_fournisseurs
-x=[]
-corresp=[]
-for i in range(len(infos_fournisseurs)):
-    if sous_traites_bool[i]==0:
-        x.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
-        corresp.append(i)
 
-x=np.array(x)
+
+def correspondance(sous_traites):
+    x0=[]
+    corresp0=[]
+    for i in range(len(infos_fournisseurs)):
+        if sous_traites[i]==0:
+            x0.append([infos_fournisseurs[i][2][0],infos_fournisseurs[i][2][1]])
+            corresp0.append(i)
+    x0=np.array(x0)
+    return(corresp0, x0)
+
+x=correspondance(sous_traites_bool)[1]
 
 plt.scatter(x[:,0],x[:,1], label='True Position')
 
 kmeans = KMeans(n_clusters)
 kmeans.fit(x)
 
-print(kmeans.cluster_centers_)
-
-print(kmeans.labels_)
-clust=kmeans.labels_
+clust0=kmeans.labels_
 plt.scatter(x[:,0],x[:,1], c=kmeans.labels_, cmap='rainbow')
-plt.show()
-
-print(len(clust))
-print(len(corresp))

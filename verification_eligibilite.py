@@ -128,6 +128,7 @@ def check_solution(instance: Instance, solution: Solution) -> bool:
             raise Exception(
                 "At least one provider declared in a tour is not in the corresponding group !")
         if len([t[3][i][0] for i in range(len(t[3]))]) != len(set([t[3][i][0] for i in range(len(t[3]))])):
+            print(t[3])
             raise Exception("One tour can pass only one time at a provider")
         if sum([t[3][i][1] for i in range(len(t[3]))]) > Q:
             raise Exception("At least one truck is overloaded !")

@@ -28,37 +28,36 @@ def cout_min_quand_on_soustraite_pas(i):
     return cout_aller_retour(i)*nbr_min_passages_camions[i]
 
 ###
-sous_traites_bool = []
-for i in range(nb_fournisseurs):
-    if (cout_min_quand_on_soustraite_pas(i)<infos_fournisseurs[i][0]):
-        sous_traites_bool.append(0)
-    else:
-        sous_traites_bool.append(1)
-# sous_traites_bool[i] = 1 : on sous-traite i, 0 sinon
+def solution_triviale():
+    sous_traites_bool = []
+    for i in range(nb_fournisseurs):
+        if (cout_min_quand_on_soustraite_pas(i)<infos_fournisseurs[i][0]):
+            sous_traites_bool.append(0)
+        else:
+            sous_traites_bool.append(1)
+    # sous_traites_bool[i] = 1 : on sous-traite i, 0 sinon
+    
+    groupes = []
+    for i in range(nb_fournisseurs):
+        if sous_traites_bool[i]==0:
+            groupes.append([i]) #i forme un groupe d'1 élément
+    
+    tournees = []
+    for i in range(len(groupes)):
+        fournisseur = groupes[i][0]
+        for sem in range(horizon):
+            qte_a_recup = infos_fournisseurs[fournisseur][1][sem]
+            nb_camions = ceil(qte_a_recup/Q)
+            for j in range(nb_camions):
+                qte_ds_camion = min(qte_a_recup, Q)
+                tournee = [i, sem, [fournisseur], [qte_ds_camion]]
+                qte_a_recup -= qte_ds_camion
+                tournees.append(tournee)
+                del qte_ds_camion
+                del tournee
+            del nb_camions
+            del qte_a_recup
+        del fournisseur
+    return([sous_traites_bool, tournees, groupes])
 
-groupes = []
-for i in range(nb_fournisseurs):
-    if sous_traites_bool[i]==0:
-        groupes.append([i]) #i forme un groupe d'1 élément
-
-tournees = []
-for i in range(len(groupes)):
-    fournisseur = groupes[i][0]
-    for sem in range(horizon):
-        qte_a_recup = infos_fournisseurs[fournisseur][1][sem]
-        nb_camions = ceil(qte_a_recup/Q)
-        for j in range(nb_camions):
-            qte_ds_camion = min(qte_a_recup, Q)
-            tournee = [i, sem, [fournisseur], [qte_ds_camion]]
-            qte_a_recup -= qte_ds_camion
-            tournees.append(tournee)
-            del qte_ds_camion
-            del tournee
-        del nb_camions
-        del qte_a_recup
-    del fournisseur
-
-
-solution_triviale = [sous_traites_bool, tournees, groupes]
-
-print(cout(solution_triviale))
+solution_triviale = solution_triviale()
