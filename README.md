@@ -21,3 +21,4 @@ J'ai fait (Bak) :
 - En parlant de la fonction auxiliaire, c'est sûrement dans celle-ci qu'il y a l'erreur dont je parle sur fb, si vous trouvez c'est cool, mais c'est un merdier sans nom donc j'essaierai de m'en occuper.
 - J'ai utilisé des deepcopies à fond sur la descente pcq j'ai câblé et ça a fini par fonctionner, peut-être y en a-t-il qui ne servent à rien, si vous voulez élaguer un peu.
 - Le truc "verification-eligibilité" c'est le truc de Lesueur. Il suffit d'antiparser la solution, de lancer tt le code avec un Ctrl+Entrée et ça sort le raiseError correspondant.
+- Si vous voulez lancer la descente, dans la fonction auxiliaire (juste au-dessus), mettez les print en commentaire sinon ça va être relou. Je viens de m'en rendre compte mais là il est 2h30 frchmt jpp j'arrête.
