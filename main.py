@@ -10,7 +10,7 @@ from sousTraitanceSeuil import sous_traites_avec_seuil
 from descente2 import descente2, recuit_simule2
 from groupes_variation_clusterings import groupes_variation_clustering, n_meilleures_sol
 
-list_seuils = [1, 1.5, 2, 3, 4, 5, 7.5, 10, 12.5, 15, 20, 30]
+list_seuils = [15]
 
 
 def main_tarace():
@@ -19,12 +19,15 @@ def main_tarace():
         print("seuil :", seuil)
         sous_traite = sous_traites_avec_seuil(seuil)
 
-        sols_diff_k = groupes_variation_clustering(10, sous_traite)
+        sols_diff_k = groupes_variation_clustering(sous_traite,7,20)
 
-        quatre_meileures_sols = n_meilleures_sol(sols_diff_k,3)
+        for i in range(len(sols_diff_k)):
+            sols_diff_k[i] = descente2(sols_diff_k[i], 50)
 
-        for sol in quatre_meileures_sols:
-            descente2(sol, 300)
+        quatre_meileures_sols = n_meilleures_sol(sols_diff_k,4)
+
+        for i in range(len(quatre_meileures_sols)):
+            quatre_meileures_sols[i] = descente2(quatre_meileures_sols[i], 500)
 
         record.append(n_meilleures_sol(quatre_meileures_sols,1)[0])
 
@@ -35,21 +38,18 @@ jourgle = main_tarace()
 def terminator(sols):
     quatre_meileures_sols = n_meilleures_sol(sols,1)
     for sol in quatre_meileures_sols:
-        sol = descente2(sol, 1000)
+        sol = descente2(sol, 100)
 
-terminator(jourgle)
 
 CHARLES = n_meilleures_sol(jourgle,1)[0]
-CHARLES = descente2(CHARLES, 1000)
+CHARLES = descente2(CHARLES, 100)
 
-for i in range(20):
-    print(i)
-    cout_o = cout(CHARLES)
-    CHARLES  = recuit_simule2(CHARLES, 100)
-    CHARLES = descente2(CHARLES, 110)
+#for i in range(20):
+#    print(i)
+#    cout_o = cout(CHARLES)
+#    CHARLES  = recuit_simule2(CHARLES, 100)
+#    CHARLES = descente2(CHARLES, 110)
 
 
 print(cout(CHARLES))
-
-CHARLES = descente2(CHARLES, 200)
 

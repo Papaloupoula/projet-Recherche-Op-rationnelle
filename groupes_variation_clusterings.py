@@ -14,12 +14,12 @@ from sousTraitanceSeuil import sous_traites_avec_seuil
 from sklearn.cluster import KMeans
 
 
-def groupes_variation_clustering(nb_iterations, sous_traites):
+def groupes_variation_clustering(sous_traites,a,b):
     """
     groupes en faisant varier les clusterings
     """
     solutions=[]
-    for i in range(10, nb_iterations+11):
+    for i in range(a,b):
 
         corresp, x = correspondance(sous_traites)
 
@@ -56,9 +56,10 @@ def n_meilleures_sol(solutions, N):
         N_meilleurs.append(indice_min)
         couts_N_meilleurs.append(cout_sol)
 
+    print(N_meilleurs)
     return [solutions[i] for i in N_meilleurs]
 
 ##
 
-solutions = groupes_variation_clustering(20, sous_traites_avec_seuil(1))
+solutions = groupes_variation_clustering(sous_traites_avec_seuil(1),19,20)
 meilleure_sol_originale = n_meilleures_sol(solutions, 1)[0]

@@ -31,6 +31,8 @@ def cree_tournees_groupe(numero,groupe):
 
     return(tournees_groupe)
 
+#def meilleur_jute(numero, groupes):
+
 
 def cree_tournees(groupes):
     """
