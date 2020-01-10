@@ -6,7 +6,7 @@ Created on Wed Jan  8 10:44:47 2020
 """
 
 from parseur_kiro import infos_fournisseurs, horizon, Q
-from opti_group import opti_tournee
+from opti_group import opti_tournee, opti_vidage, nb_rempli
 
 ###Tournée de base groupe
 def cree_tournees_groupe(numero,groupe):
@@ -18,11 +18,11 @@ def cree_tournees_groupe(numero,groupe):
     tournees_groupe = []
     for s in range(horizon):
         demande=[infos_fournisseurs[i][1][s] for i in groupe]
-
+        vidage=opti_vidage(groupe, demande, numero, s)
+        for t in vidage:
+            tournees_groupe.append(t)
         for i in range(len(groupe)):
             while demande[i]>Q:
-                tournee=[numero,s,[groupe[i]],[Q]]
-                tournees_groupe.append(tournee)
                 demande[i]=demande[i]-Q
 
         last_tournees = opti_tournee(groupe, demande, numero, s)
@@ -30,8 +30,6 @@ def cree_tournees_groupe(numero,groupe):
             tournees_groupe.append(t)
 
     return(tournees_groupe)
-
-#def meilleur_jute(numero, groupes):
 
 
 def cree_tournees(groupes):
