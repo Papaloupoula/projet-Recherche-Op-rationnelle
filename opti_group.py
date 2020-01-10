@@ -81,30 +81,32 @@ def opti_tournee(groupe_, demande_, numero_groupe,s):
 
     #ERREUR FIRAS SE DEMERDE
 
-#    for permut in permuts:
-#        tour=[]
-#        cout=0
-#        for i in range(n):
-#            quantite_tot=0
-#            quant_fournisseur=[]
-#            fournisseur_livre=[]
-#            for j in range(i,n):
-#                if permut[j][1]>0:
-#                    if quantite_tot<Q:
-#                        on_prend=min(Q-quantite_tot,permut[j][1])
-#                        quant_fournisseur.append(on_prend)
-#                        fournisseur_livre.append(permut[j][0])
-#                        quantite_tot+=on_prend
-#                        permut[j][1]=permut[j][1]-on_prend
-#            if len(fournisseur_livre)>0:
-#                tournee=[numero_groupe, s, fournisseur_livre, quant_fournisseur]
-#                cout+=cout_tournee(tournee)
-#                tour.append(tournee)
-#
-#        if cout<m:
-#            m=cout
-#            tournees_opti=tour
+    for permut in permuts:
+        tour=[]
+        cout=0
+        for i in range(n):
+            quantite_tot=0
+            quant_fournisseur=[]
+            fournisseur_livre=[]
+            for j in range(i,n):
+                if permut[j][1]>0:
+                    if quantite_tot<Q:
+                        on_prend=min(Q-quantite_tot,permut[j][1])
+                        quant_fournisseur.append(on_prend)
+                        fournisseur_livre.append(permut[j][0])
+                        quantite_tot+=on_prend
+                        permut[j][1]=permut[j][1]-on_prend
+            if len(fournisseur_livre)>0:
+                tournee=[numero_groupe, s, fournisseur_livre, quant_fournisseur]
+                cout+=cout_tournee(tournee)
+                tour.append(tournee)
+
+        if cout<m and len(tour)>0:
+            m=cout
+            tournees_opti=tour
 
 
     return tournees_opti
+
+print(opti_tournee(g,d,0,0))
 
