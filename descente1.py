@@ -6,7 +6,7 @@ Created on Wed Jan  8 11:19:06 2020
 
 
 import random as rd
-import copy as c
+import copy as cp
 
 import math as m
 
@@ -30,6 +30,7 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
     #print("st f2", fourn2_est_soustraite)
     indice_groupe_f1 = -1
     indice_groupe_f2 = -1
+
     for j in range(len(groupes_ech)):
         groupe_en_cours = groupes_ech[j]
         if fourn1 in groupe_en_cours:
@@ -45,8 +46,6 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
 
     # 1er cas: l'un des deux est sous-traité
     elif fourn1_est_soustraite == 1 and fourn2_est_soustraite == 0:
-
-
         #maintenant, on échange les rôles des deux fournisseurs
         # on sous-traite le 2
         sous_traites0[fourn1] = 0
@@ -108,10 +107,10 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
 
 def descente1(solution_originale, iterations_max):
     i=0
-    solution_en_cours = c.deepcopy(solution_originale)
-    while i <= iterations_max:
-        sous_traites0 = c.deepcopy(solution_en_cours[0])
-        groupes_desc = c.deepcopy(solution_en_cours[2])
+    solution_en_cours = cp.deepcopy(solution_originale)
+    while i < iterations_max:
+        sous_traites0 = cp.deepcopy(solution_en_cours[0])
+        groupes_desc = cp.deepcopy(solution_en_cours[2])
         cout_sol = cout(solution_en_cours)
 
         # on commence par générer deux fournisseurs à échanger aléatoirement
@@ -134,25 +133,27 @@ def descente1(solution_originale, iterations_max):
         nv_solution = [sous_traites0, tournees_desc, groupes_desc]
         nv_cout = cout(nv_solution)
 
-        if nv_cout < cout_sol:
-            solution_en_cours = c.deepcopy(nv_solution)
+        #print("nv_cout :", nv_cout)
+        #print("cout_ori :", cout_sol)
+        if nv_cout <= cout_sol:
+            solution_en_cours = cp.deepcopy(nv_solution)
             #print(nv_cout)
 
         #print(i)
         i+=1
-    #return(solution_en_cours)
-    solution_originale = solution_en_cours
+    return(solution_en_cours)
+
 
 def recuit_simule(solution_originale, iterations_max):
     """
     faire avec 100
     """
-
+    beta = 150000
     i=0
-    solution_en_cours = c.deepcopy(solution_originale)
-    while i <= iterations_max:
-        sous_traites0 = c.deepcopy(solution_en_cours[0])
-        groupes_desc = c.deepcopy(solution_en_cours[2])
+    solution_en_cours = cp.deepcopy(solution_originale)
+    while i < iterations_max:
+        sous_traites0 = cp.deepcopy(solution_en_cours[0])
+        groupes_desc = cp.deepcopy(solution_en_cours[2])
         cout_sol = cout(solution_en_cours)
 
         # on commence par générer deux fournisseurs à échanger aléatoirement
@@ -175,17 +176,19 @@ def recuit_simule(solution_originale, iterations_max):
         nv_solution = [sous_traites0, tournees_desc, groupes_desc]
         nv_cout = cout(nv_solution)
 
-        if nv_cout < cout_sol:
-            solution_en_cours = c.deepcopy(nv_solution)
+        if nv_cout <= cout_sol:
+            solution_en_cours = cp.deepcopy(nv_solution)
             #print(nv_cout)
+
+        #la partie quon rajoute pour le recuit simule
         else :
-            T = 1+iterations_max - i
-            energie = m.exp( -10/T)
+            T = 10*(iterations_max - i)/iterations_max
+            energie = nv_cout - cout_sol
+            proba = m.exp(-energie/(beta*T))
             p = rd.random()
-            if p <= energie:
+            if p <= proba:
                 solution_en_cours = nv_solution
-        #print(i)
         i+=1
-    #return(solution_en_cours)
-    solution_originale = solution_en_cours
+
+    return(solution_en_cours)
 

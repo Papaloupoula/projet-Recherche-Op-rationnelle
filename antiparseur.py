@@ -10,14 +10,14 @@ def antiparseur(solution):
     nb_sous_trait = 0
     for el in liste_sous_trait:
         nb_sous_trait += el
-    
+
     tournees = solution[1]
     nb_tournees = len(tournees)
-    
+
     groupes = solution[2]
     nb_groupes = len(groupes)
-    
-    
+
+
     with open('solution.csv', 'w', newline='') as csvfile:
         solwriter = csv.writer(csvfile, delimiter=' ',quotechar=' ', quoting=csv.QUOTE_MINIMAL)
         solwriter.writerow(['x'] + [nb_sous_trait] + ['f'] + [id_sous_trait[i] for i in range(len(id_sous_trait))])
@@ -35,10 +35,17 @@ def antiparseur(solution):
             for f in range(len(tournee[2])):
                 row = row + ['f'] + [tournee[2][f]] + [tournee[3][f]]
             solwriter.writerow(row)
-            
+
 antiparseur(solution)
 
-
+def extra(solution):
+    l=[]
+    groupes = solution[2]
+    for groupe in groupes:
+        for fournisseur in groupe:
+            l.append(fournisseur)
+    l.sort()
+    return l
 ### Format des données
 #""""
 #solution = [sous_traitance, tournees, groupes]
