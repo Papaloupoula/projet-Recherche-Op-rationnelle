@@ -6,14 +6,23 @@ Created on Wed Jan  8 17:27:01 2020
 """
 
 from parseur_kiro import Q, cout_tournee
+import copy as cp
 
 import itertools
+g=[0,1,2]
+d = [100,10,12999]
 
-def opti_tournee(groupe, demande, numero_groupe,s):
+def opti_tournee(groupe_, demande_, numero_groupe,s):
+    """
+    optimise les dernieres tournees pour un groupe
+    """
+    groupe = cp.deepcopy(groupe_)
+    demande = cp.deepcopy(demande_)
+
     m=0
     n=len(groupe)
     tournees_opti=[]
-
+    print("charles")
     #cas on fait des groupes de 1
     for i in range(n):
         tournee = [numero_groupe, s, [groupe[i]], [demande[i]]]
@@ -69,29 +78,32 @@ def opti_tournee(groupe, demande, numero_groupe,s):
 
     #Autre remplissage
     #a laisser a la fin car modifie demande
-    for permut in permuts:
-        tour=[]
-        cout=0
-        for i in range(n):
-            quantite_tot=0
-            quant_fournisseur=[]
-            fournisseur_livre=[]
-            for j in range(i,n):
-                if permut[j][1]>0:
-                    if quantite_tot<Q:
-                        on_prend=min(Q-quantite_tot,permut[j][1])
-                        quant_fournisseur.append(on_prend)
-                        fournisseur_livre.append(permut[j][0])
-                        quantite_tot+=on_prend
-                        permut[j][1]=permut[j][1]-on_prend
-            if len(fournisseur_livre)>0:
-                tournee=[numero_groupe, s, fournisseur_livre, quant_fournisseur]
-                cout+=cout_tournee(tournee)
-                tour.append(tournee)
 
-        if cout<m:
-            m=cout
-            tournees_opti=tour
+    #ERREUR FIRAS SE DEMERDE
+
+#    for permut in permuts:
+#        tour=[]
+#        cout=0
+#        for i in range(n):
+#            quantite_tot=0
+#            quant_fournisseur=[]
+#            fournisseur_livre=[]
+#            for j in range(i,n):
+#                if permut[j][1]>0:
+#                    if quantite_tot<Q:
+#                        on_prend=min(Q-quantite_tot,permut[j][1])
+#                        quant_fournisseur.append(on_prend)
+#                        fournisseur_livre.append(permut[j][0])
+#                        quantite_tot+=on_prend
+#                        permut[j][1]=permut[j][1]-on_prend
+#            if len(fournisseur_livre)>0:
+#                tournee=[numero_groupe, s, fournisseur_livre, quant_fournisseur]
+#                cout+=cout_tournee(tournee)
+#                tour.append(tournee)
+#
+#        if cout<m:
+#            m=cout
+#            tournees_opti=tour
 
 
     return tournees_opti
