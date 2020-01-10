@@ -9,7 +9,7 @@ from parseur_kiro import Q, cout_tournee
 import copy as cp
 
 import itertools
-g=[0,1,2]
+g = [0,1,2]
 d = [100,10,12999]
 
 def opti_tournee(groupe_, demande_, numero_groupe,s):
@@ -22,7 +22,7 @@ def opti_tournee(groupe_, demande_, numero_groupe,s):
     m=0
     n=len(groupe)
     tournees_opti=[]
-    print("charles")
+
     #cas on fait des groupes de 1
     for i in range(n):
         tournee = [numero_groupe, s, [groupe[i]], [demande[i]]]
@@ -79,7 +79,6 @@ def opti_tournee(groupe_, demande_, numero_groupe,s):
     #Autre remplissage
     #a laisser a la fin car modifie demande
 
-    #ERREUR FIRAS SE DEMERDE
 
     for permut in permuts:
         tour=[]
@@ -101,12 +100,11 @@ def opti_tournee(groupe_, demande_, numero_groupe,s):
                 cout+=cout_tournee(tournee)
                 tour.append(tournee)
 
-        if cout<m and len(tour)>0:
-            m=cout
-            tournees_opti=tour
+        if len(tour)>0:
+            if cout<m:
+                m=cout
+                tournees_opti=tour
 
 
     return tournees_opti
-
-print(opti_tournee(g,d,0,0))
 
