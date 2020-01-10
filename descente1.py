@@ -22,8 +22,9 @@ def echange_fournisseurs(fourn1, fourn2, sous_traites0, groupes_ech):
     et une liste de groupes_ech données
     modifie la liste de sous-traitance et celle des groupes_ech
     """
-    #print("f1:", fourn1)
-    #print("f2:", fourn2)
+
+    assert(fourn1 != fourn2)
+
     fourn1_est_soustraite = sous_traites0[fourn1]
     fourn2_est_soustraite = sous_traites0[fourn2]
     #print("st f1", fourn1_est_soustraite)
