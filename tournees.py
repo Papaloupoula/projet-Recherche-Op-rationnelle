@@ -6,6 +6,7 @@ Created on Wed Jan  8 10:44:47 2020
 """
 
 from parseur_kiro import infos_fournisseurs, horizon, Q
+from opti_group import opti_tournee
 
 ###Tournée de base groupe
 def cree_tournees_groupe(numero,groupe):
@@ -24,21 +25,9 @@ def cree_tournees_groupe(numero,groupe):
                 tournees_groupe.append(tournee)
                 demande[i]=demande[i]-Q
 
-        for i in range(len(groupe)):
-            quantite_tot=0
-            quant_fournisseur=[]
-            fournisseur_livre=[]
-            for j in range(i,len(groupe)):
-                if demande[j]>0:
-                    if quantite_tot<Q:
-                        on_prend=min(Q-quantite_tot,demande[j])
-                        quant_fournisseur.append(on_prend)
-                        fournisseur_livre.append(groupe[j])
-                        quantite_tot+=on_prend
-                        demande[j]=demande[j]-on_prend
-            if len(fournisseur_livre)>0:
-                tournee=[numero,s,fournisseur_livre,quant_fournisseur]
-                tournees_groupe.append(tournee)
+        last_tournees = opti_tournee(groupe, demande, numero, s)
+        for t in last_tournees:
+            tournees_groupe.append(t)
 
     return(tournees_groupe)
 
@@ -50,7 +39,6 @@ def cree_tournees(groupes):
     tournees=[]
     for i in range(len(groupes)):
         tournees_groupe = cree_tournees_groupe(i, groupes[i])
-        #opti_tournee(groupe, demande, numero_groupe,s)
         for x in tournees_groupe:
             tournees.append(x)
     return(tournees)
