@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jan 10 10:46:26 2020
-
 @author: Charles
 """
 
@@ -24,8 +23,8 @@ def echange_fournisseurs2(fourn1, fourn2, sous_traites0, groupes_ech):
 
     fourn1_est_soustraite = sous_traites0[fourn1]
     fourn2_est_soustraite = sous_traites0[fourn2]
-    #print("st f1", fourn1_est_soustraite)
-    #print("st f2", fourn2_est_soustraite)
+    # print("st f1", fourn1_est_soustraite)
+    # print("st f2", fourn2_est_soustraite)
     indice_groupe_f1 = -1
     indice_groupe_f2 = -1
 
@@ -35,8 +34,8 @@ def echange_fournisseurs2(fourn1, fourn2, sous_traites0, groupes_ech):
             indice_groupe_f1 = j
         if fourn2 in groupe_en_cours:
             indice_groupe_f2 = j
-    #print("grp1", indice_groupe_f1)
-    #print("grp2", indice_groupe_f2)
+    # print("grp1", indice_groupe_f1)
+    # print("grp2", indice_groupe_f2)
 
     #"0e cas" les deux sont sous traites, on ne fait rien
     if fourn1_est_soustraite == 1 and fourn2_est_soustraite == 1:
@@ -69,13 +68,37 @@ def echange_fournisseurs2(fourn1, fourn2, sous_traites0, groupes_ech):
     else:
         groupe_f1 = groupes_ech[indice_groupe_f1]
         groupe_f2 = groupes_ech[indice_groupe_f2]
+        f1 = cp.deepcopy(fourn1)
+        f2 = cp.deepcopy(fourn2)
         for k in range(len(groupe_f1)):
             if groupe_f1[k] == fourn1:
-                groupes_ech[indice_groupe_f1][k] = fourn2
+                indice_f1_dans_groupe_f1 = k
 
         for k in range(len(groupe_f2)):
             if groupe_f2[k] == fourn2:
-                groupes_ech[indice_groupe_f2][k] == fourn1
+               indice_f2_dans_groupe_f2 = k
+        
+        groupe_f1[indice_f1_dans_groupe_f1], groupe_f2[indice_f2_dans_groupe_f2] = groupe_f2[indice_f2_dans_groupe_f2], groupe_f1[indice_f1_dans_groupe_f1]
+    
+    # print("xxxxxxxxxxxxxxxx")
+    # print("f1:", fourn1)
+    # print("f2:", fourn2)
+    # fourn1_est_soustraite = sous_traites0[fourn1]
+    # fourn2_est_soustraite = sous_traites0[fourn2]
+    # print("st f1", fourn1_est_soustraite)
+    # print("st f2", fourn2_est_soustraite)
+    # indice_groupe_f1 = -1
+    # indice_groupe_f2 = -1
+    # for j in range(len(groupes_ech)):
+    #     groupe_en_cours = groupes_ech[j]
+    #     if fourn1 in groupe_en_cours:
+    #         indice_groupe_f1 = j
+    #     if fourn2 in groupe_en_cours:
+    #         indice_groupe_f2 = j
+    # print("grp1", indice_groupe_f1)
+    # print("grp2", indice_groupe_f2)
+    # print("XXXXXXXXXXXXXXXXX")
+    # print("XXXXXXXXXXXXXXXXX")
 
     return sous_traites0, groupes_ech
 
@@ -109,9 +132,9 @@ def descente2(solution_originale, iterations_max):
 
         #print("nv_cout :", nv_cout)
         #print("cout_ori :", cout_sol)
-        if nv_cout <= cout_sol:
+        if nv_cout < cout_sol:
             solution_en_cours = cp.deepcopy(nv_solution)
-            #print(nv_cout)
+            print("nv_cout :", nv_cout)
 
         #print(i)
         i+=1
@@ -164,4 +187,3 @@ def recuit_simule2(solution_originale, iterations_max):
         i+=1
 
     return(solution_en_cours)
-
